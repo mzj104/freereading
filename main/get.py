@@ -89,6 +89,8 @@ def get_single_chapter(url_lis, idx, failed_list=[], queue=None):
                 line for line in lines
                 if line.strip() and not any(word in line for word in word_lis)
             ]
+            if len(clean_lines)==0:
+                print(idx, "源文件可能存在错误或丢失，可以手动复制")
             ans = ''
             for item in clean_lines:
                 ans += '        ' + item + '\n'
@@ -138,7 +140,7 @@ def merge_txt_files(input_dir='./tmp', bookname="book"):
 
 
 if __name__ == '__main__':
-    url_lis, bookname = get_list("45814")
+    url_lis, bookname = get_list("139373")
     if len(url_lis)!=0:
         with Manager() as manager:
             failed_list = manager.list()
@@ -152,6 +154,7 @@ if __name__ == '__main__':
             pool.join()
             queue.put(None)
             monitor.join()
+            failed_list.remove(0)
             if failed_list:
                 print(f"\n❗ 以下章节下载失败（共 {len(failed_list)} 项）：")
                 print(list(failed_list))
