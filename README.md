@@ -12,4 +12,8 @@
 
 这里面170567就是bookid，替换mian/get.py中的id运行即可
 
+"""
+url_lis, bookname = get_list("170567")
+"""
+
 **请保持网络畅通**
